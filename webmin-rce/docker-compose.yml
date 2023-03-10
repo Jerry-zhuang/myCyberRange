@@ -1,0 +1,7 @@
+version: '2'
+services:
+  web:
+    build: .
+    image: webmin-rce
+    ports:
+    - "10000:10000"

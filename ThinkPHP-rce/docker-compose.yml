@@ -1,0 +1,7 @@
+version: '3'
+services:
+  thinkphp-rce:
+    build: .
+    image: thinkphp-rce
+    ports:
+      - "8081:80"

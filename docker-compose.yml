@@ -1,0 +1,28 @@
+version: '3'
+services:
+  thinkphp:
+    build: ThinkPHP-rce/
+    image: thinkphp-rce
+    container_name: "thinkphp-rce"
+    ports:
+      - "8080:80"
+    environment:
+      - FLAG=${flag1}
+    networks:
+      net1:
+        ipv4_address: 10.10.10.24
+  webmin:
+    build: webmin-rce/
+    image: webmin-rce
+    container_name: "webmin-rce"
+    environment:
+      - FLAG=${flag2}
+    networks:
+      net1:
+        ipv4_address: 10.10.10.81
+
+networks:
+  net1:
+    ipam:
+      config:
+        - subnet: "10.10.10.0/24"
