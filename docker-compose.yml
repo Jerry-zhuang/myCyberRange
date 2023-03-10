@@ -20,9 +20,22 @@ services:
     networks:
       net1:
         ipv4_address: 10.10.10.81
+      net2:
+        ipv4_address: 172.16.1.11
+  weblogic:
+    build: weblogic-rce/
+    image: weblogic-rce
+    container_name: "weblogic-rce"
+    networks:
+      net2:
+        ipv4_address: 172.16.1.16
 
 networks:
   net1:
     ipam:
       config:
         - subnet: "10.10.10.0/24"
+  net2:
+    ipam:
+      config:
+        - subnet: "172.16.1.0/24"

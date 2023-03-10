@@ -1,0 +1,7 @@
+version: '2'
+services:
+  weblogic:
+    build: .
+    image: weblogic-rce
+    ports:
+      - "7001:7001"
