@@ -17,4 +17,5 @@ RUN cd /var/www  \
 	&& sed -i 's|// \\think\\middleware\\LoadLangPack.*| \\think\\middleware\\LoadLangPack::class,|i' app/middleware.php  \
 	&& chown www-data:www-data -R .
 USER root
+RUN echo 'flag{HQUCyberRange_ThinkPHP_RCE}' > /flag.txt
 WORKDIR /var/www/public

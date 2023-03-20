@@ -10,7 +10,7 @@ services:
       - FLAG=${flag1}
     networks:
       net1:
-        ipv4_address: 10.10.10.24
+        ipv4_address: 192.168.22.95
   webmin:
     build: webmin-rce/
     image: webmin-rce
@@ -19,23 +19,23 @@ services:
       - FLAG=${flag2}
     networks:
       net1:
-        ipv4_address: 10.10.10.81
+        ipv4_address: 192.168.22.67
       net2:
-        ipv4_address: 172.16.1.11
+        ipv4_address: 192.168.33.29
   weblogic:
     build: weblogic-rce/
     image: weblogic-rce
     container_name: "weblogic-rce"
     networks:
       net2:
-        ipv4_address: 172.16.1.16
+        ipv4_address: 192.168.33.192
 
 networks:
   net1:
     ipam:
       config:
-        - subnet: "10.10.10.0/24"
+        - subnet: "192.168.22.0/24"
   net2:
     ipam:
       config:
-        - subnet: "172.16.1.0/24"
+        - subnet: "192.168.33.0/24"
