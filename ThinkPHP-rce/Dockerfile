@@ -18,4 +18,5 @@ RUN cd /var/www  \
 	&& chown www-data:www-data -R .
 USER root
 RUN echo 'flag{HQUCyberRange_ThinkPHP_RCE}' > /flag.txt
+
 WORKDIR /var/www/public
