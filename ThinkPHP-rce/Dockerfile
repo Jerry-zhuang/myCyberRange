@@ -15,6 +15,7 @@ RUN cd /var/www  \
 	&& php composer.phar config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
 	&& php composer.phar install --ignore-platform-reqs  \
 	&& sed -i 's|// \\think\\middleware\\LoadLangPack.*| \\think\\middleware\\LoadLangPack::class,|i' app/middleware.php  \
+	&& echo '<?php phpinfo(); ?>' > public/phpinfo.php \
 	&& chown www-data:www-data -R .
 USER root
 RUN echo 'flag{HQUCyberRange_ThinkPHP_RCE}' > /flag.txt
