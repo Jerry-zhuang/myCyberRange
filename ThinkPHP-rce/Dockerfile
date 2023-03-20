@@ -1,6 +1,7 @@
 FROM php:7.4.33-apache
-RUN apt-get update  \
-	&& apt-get install -y --no-install-recommends unzip iproute2 \
+RUN sed -i s@/deb.debian.org/@/mirrors.aliyun.com/@g /etc/apt/sources.list \
+	&& apt-get update  \
+	&& apt-get install -y --no-install-recommends unzip iproute2 iputils-ping\
 	&& rm -rf /var/lib/apt/lists/*
 ENV APACHE_DOCUMENT_ROOT=/var/www/public
 RUN cd /var/www  \
@@ -9,9 +10,11 @@ RUN cd /var/www  \
 	&& sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf  \
 	&& sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 COPY composer.json /var/www/
+COPY composer.phar /var/www/
 RUN cd /var/www  \
-	&& curl -#sSL https://getcomposer.org/download/2.4.4/composer.phar -o composer.phar  \
-	&& php composer.phar install  \
+	&& php composer.phar config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
+	&& php composer.phar install --ignore-platform-reqs  \
 	&& sed -i 's|// \\think\\middleware\\LoadLangPack.*| \\think\\middleware\\LoadLangPack::class,|i' app/middleware.php  \
 	&& chown www-data:www-data -R .
+USER root
 WORKDIR /var/www/public
